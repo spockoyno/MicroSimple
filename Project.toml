@@ -2,3 +2,6 @@ name = "MicroSimple"
 uuid = "688b310e-af9a-443a-bbc9-c52fe69bf2ae"
 authors = ["spockoyno <volkov.rrm@gmail.com>"]
 version = "0.1.0"
+
+[deps]
+Parameters = "d96e819e-fc66-5662-9728-84c9c7592b0a"
