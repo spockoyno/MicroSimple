@@ -27,17 +27,16 @@
     u_S2 = 0.5                    # utility when sicker
     u_Trt = 0.95                  # utility when sick(e
 
+
+    disp_iters::Int = 100  # display progress after each disp_iters
+
 end 
 
 
 
-
-
-@with_kw struct BasicModelProbs
-    @deftype Floats 
-    D =[0.0; 0.0; 0.0; 1.0]
-    H 
-    S1
-    S2 
-    
-end
+@with_kw struct Results
+    total_costs::Floats
+    total_effs::Floats
+    total_cost_hat::Float64
+    total_eff_hat::Float64
+end 

@@ -13,4 +13,8 @@ using .MicroSimple
 
 mod = BasicModel()
 
-der = derive_basic_probs(mod)
+@time begin
+res_treat = micro_sim(mod, true)
+res_no_treat = micro_sim(mod, false)
+end 
+
