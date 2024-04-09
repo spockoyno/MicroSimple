@@ -3,14 +3,18 @@
 @with_kw struct BasicModel
     @deftype Float64
 
+
+    v_Trt::Strings = ["No Treatment", "Treatment"]  # store the strategy names
+    v_n::Strings = ["H", "S1", "S2", "D"]  # the model states: Healthy (H), Sick (S1), Sicker (S2), Dead (D)
+
     n_i::Int = 100000                      # number of simulated individuals
     n_t::Int = 30                          # time horizon, 30 cycles
-    v_n::Strings = ["H", "S1", "S2", "D"]  # the model states: Healthy (H), Sick (S1), Sicker (S2), Dead (D)
+
     v_M_1::Strings = fill("H", n_i)     # everyone begins in the healthy state
   
     d_c = 0.03                    # discount rate for costs
     d_e = 0.03                    # discount rate for health outcome (QALYs)
-    v_Trt::Strings = ["No Treatment", "Treatment"]  # store the strategy names
+
     p_HD = 0.005                  # probability to die when healthy
     p_HS1 = 0.15                  # probability to become sick when healthy
     p_S1H = 0.5                   # probability to become healthy when sick
@@ -35,8 +39,33 @@ end
 
 
 @with_kw struct Results
+    @deftype Float64
     total_costs::Floats
     total_effs::Floats
-    total_cost_hat::Float64
-    total_eff_hat::Float64
+
+    total_cost_hat
+    total_eff_hat
+
 end 
+
+@with_kw struct ResultsNu
+    @deftype Float64
+    total_costs::Floats
+    total_effs::Floats
+    
+    total_cost_hat
+    total_eff_hat
+    total_cost_se
+    total_eff_se
+end 
+
+@with_kw struct Summary
+    @deftype Float64
+
+   treat_total_cost_hat
+   no_treat_total_cost_hat
+   treat_total_cost_se
+   no_treat_total_cost_se
+
+end 
+
