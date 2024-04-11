@@ -88,3 +88,57 @@ function micro_sim(m::BasicModel, is_treatement::Bool; seed::Int=1)
     total_eff_hat = mean(te)  # average (discounted) QALYs
     )
 end
+
+
+function compute_states(m::BasicModel, seed::Int=1)
+    @unpack n_t, n_i, v_n = m
+  
+  
+    ### precompute conditional on treatment
+    probs = basic_probs(m)
+    M::Matrix{String} = fill("H", n_i, n_t + 1)
+
+    for i in 1:n_i
+        Random.seed!(seed + i)  # Set the seed for each individual
+      
+        for t in 1:n_t
+            state = sample(v_n, Weights( probs[M[i, t]]), 1)[1]
+            M[i, t + 1] = state    
+        end 
+      
+    end
+
+
+    return M
+end
+
+
+
+
+function update_costs(m::BasicModel, is_treatement::Bool, M:: Matrix{String})
+    @unpack  d_c, n_i, n_t = m
+  
+  
+    ### precompute conditional on treatment
+   
+    costs = basic_costs(m, is_treatement)
+    rows, cols = size(M)
+
+
+    C::Matrix{Int} = zeros(Int, rows, cols)
+  
+    for i in 1:rows
+        
+        for t in 1: cols
+            state = M[i, t]
+            C[i, t ] = costs[state]
+          
+        end 
+        
+    end
+
+    tc = C * (1 / (1 + d_c)) .^ (0:n_t)   # total (discounted) cost per individual
+    se = stderror(tc)/sqrt(n_i)
+ return  mean(tc), se, tc
+   
+end
