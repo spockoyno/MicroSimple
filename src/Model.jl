@@ -7,7 +7,7 @@
     v_Trt::Strings = ["No Treatment", "Treatment"]  # store the strategy names
     v_n::Strings = ["H", "S1", "S2", "D"]  # the model states: Healthy (H), Sick (S1), Sicker (S2), Dead (D)
 
-    n_i::Int = 100000                      # number of simulated individuals
+    n_i::Int = 100_0000                     # number of simulated individuals
     n_t::Int = 30                          # time horizon, 30 cycles
 
     v_M_1::Strings = fill("H", n_i)     # everyone begins in the healthy state
@@ -48,24 +48,4 @@ end
 
 end 
 
-@with_kw struct ResultsNu
-    @deftype Float64
-    total_costs::Floats
-    total_effs::Floats
-    
-    total_cost_hat
-    total_eff_hat
-    total_cost_se
-    total_eff_se
-end 
-
-@with_kw struct Summary
-    @deftype Float64
-
-   treat_total_cost_hat
-   no_treat_total_cost_hat
-   treat_total_cost_se
-   no_treat_total_cost_se
-
-end 
 
