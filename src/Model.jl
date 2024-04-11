@@ -7,7 +7,7 @@
     v_Trt::Strings = ["No Treatment", "Treatment"]  # store the strategy names
     v_n::Strings = ["H", "S1", "S2", "D"]  # the model states: Healthy (H), Sick (S1), Sicker (S2), Dead (D)
 
-    n_i::Int = 100_0000                     # number of simulated individuals
+    n_i::Int = 10_000                    # number of simulated individuals
     n_t::Int = 30                          # time horizon, 30 cycles
 
     v_M_1::Strings = fill("H", n_i)     # everyone begins in the healthy state
